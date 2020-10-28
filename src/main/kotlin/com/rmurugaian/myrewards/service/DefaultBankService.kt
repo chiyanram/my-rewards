@@ -6,6 +6,7 @@ import com.rmurugaian.myrewards.repository.BankRepository
 import mu.KotlinLogging
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
+import java.math.BigDecimal
 import java.util.stream.Collectors
 
 private val logger = KotlinLogging.logger {}
@@ -19,6 +20,7 @@ class DefaultBankService(
     @Transactional
     override fun save(bankDTO: BankDTO): BankDTO {
         logger.info { "new bank added into system with name ${bankDTO.name}" }
+
         val apiToEntity = bankMapper.apiToEntity(bankDTO)
         val entity = bankRepository.save(apiToEntity)
         return bankMapper.entityToApi(entity)

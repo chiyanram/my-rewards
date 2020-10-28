@@ -14,7 +14,7 @@ class DefaultUserActivityService(
         val userActivityRepository: UserActivityRepository) : UserActivityService {
 
     override fun activitiesByUser(userName: String): Iterable<UserActivityDTO> {
-        return userActivityRepository.findAllByRewardsUser_UserName(userName)
+        return userActivityRepository.findAllByRewardsUser_UserNameOrderByActivityDate(userName)
                 .stream()
                 .map { userActivityMapper.entityToApi(it) }
                 .collect(Collectors.toList())

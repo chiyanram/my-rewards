@@ -6,35 +6,19 @@ import com.fasterxml.jackson.databind.DeserializationContext
 import com.fasterxml.jackson.databind.JsonNode
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize
 import com.fasterxml.jackson.databind.deser.std.StdDeserializer
+import com.github.pozo.KotlinBuilder
 import org.springframework.http.HttpStatus
 import java.time.ZonedDateTime
 
+@KotlinBuilder
 data class HttpErrorInfo constructor(
-        val timestamp: ZonedDateTime,
+        val timestamp: ZonedDateTime = ZonedDateTime.now(),
         val path: String,
         val message: String?,
-        private val httpStatus: HttpStatus
-) {
-
-    constructor(
-            @JsonProperty("status")
-            @JsonDeserialize(using = HttpStatusDeserializer::class)
-            httpStatus: HttpStatus,
-            path: String,
-            message: String?
-    ) : this(
-            timestamp = ZonedDateTime.now(),
-            httpStatus = httpStatus,
-            path = path,
-            message = message
-    )
-
-    val status: Int
-        get() = httpStatus.value()
-
-    val error: String
-        get() = httpStatus.reasonPhrase
-}
+        @JsonProperty("status")
+        @JsonDeserialize(using = HttpStatusDeserializer::class)
+        val httpStatus: HttpStatus
+)
 
 class HttpStatusDeserializer(vc: Class<*>?) : StdDeserializer<HttpStatus>(vc) {
 
