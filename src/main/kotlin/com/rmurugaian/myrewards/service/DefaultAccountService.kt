@@ -2,6 +2,7 @@ package com.rmurugaian.myrewards.service
 
 import com.rmurugaian.myrewards.domain.AccountBuilder
 import com.rmurugaian.myrewards.dto.AccountDTO
+import com.rmurugaian.myrewards.dto.CreateAccountRequest
 import com.rmurugaian.myrewards.mapper.AccountMapper
 import com.rmurugaian.myrewards.repository.AccountRepository
 import com.rmurugaian.myrewards.repository.BankRepository
@@ -28,17 +29,21 @@ class DefaultAccountService(
 
 
     @Transactional
-    override fun save(account: AccountDTO): AccountDTO {
+    override fun save(createAccountRequest: CreateAccountRequest): AccountDTO {
 
-        val user = rewardsUserRepository.findByUserName(account.user)
-        val bank = bankRepository.findByName(account.bank)
+        val user = rewardsUserRepository.findByUserName(createAccountRequest.user)
+        val bank = bankRepository.findByName(createAccountRequest.bank)
 
-        val points = (pointServiceByBank[account.bank]
-                ?: error("bank not supported")).balance(account.accountIdentifier)
+        val points = (pointServiceByBank[createAccountRequest.bank]
+                ?: error("bank not supported")).balance(createAccountRequest.accountIdentifier)
 
         val cash = BigDecimal.valueOf(points).multiply(bank.conversionRate, MathContext.DECIMAL64)
 
-        val accountEntity = AccountBuilder.builder().setPoints(points).setCash(cash).create()
+        val accountEntity = AccountBuilder.builder()
+                .setAccountIdentifier(createAccountRequest.accountIdentifier)
+                .setPoints(points)
+                .setCash(cash)
+                .create()
         accountEntity.bank = bank
         accountEntity.user = user
         val savedAccount = accountRepository.save(accountEntity)
@@ -51,8 +56,8 @@ class DefaultAccountService(
         return accountMapper.entityToApi(savedAccount)
     }
 
-    override fun accounts(): List<AccountDTO> {
-        return accountRepository.findAll()
+    override fun accountsByName(userName: String): List<AccountDTO> {
+        return accountRepository.findAllByUser_UserName(userName)
                 .stream()
                 .map { accountMapper.entityToApi(it) }
                 .collect(Collectors.toList())

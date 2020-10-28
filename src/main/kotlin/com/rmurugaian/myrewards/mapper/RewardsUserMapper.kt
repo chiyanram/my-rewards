@@ -6,7 +6,9 @@ import org.mapstruct.InjectionStrategy
 import org.mapstruct.Mapper
 import org.mapstruct.Mapping
 
-@Mapper(componentModel = "spring", injectionStrategy = InjectionStrategy.CONSTRUCTOR)
+@Mapper(componentModel = "spring",
+        injectionStrategy = InjectionStrategy.CONSTRUCTOR,
+        uses = [AccountMapper::class])
 interface RewardsUserMapper {
 
     fun entityToApi(entity: RewardsUser): RewardsUserDTO

@@ -1,6 +1,7 @@
 package com.rmurugaian.myrewards.service
 
 import com.rmurugaian.myrewards.domain.RewardsUserBuilder
+import com.rmurugaian.myrewards.dto.CreateRewardsUserRequest
 import com.rmurugaian.myrewards.dto.RewardsUserDTO
 import com.rmurugaian.myrewards.facade.AuthenticationFacade
 import com.rmurugaian.myrewards.mapper.RewardsUserMapper
@@ -20,15 +21,15 @@ class DefaultRewardsUserService(
         val repository: RewardsUserRepository) : RewardsUserService {
 
     @Transactional
-    override fun save(rewardsUserDTO: RewardsUserDTO): RewardsUserDTO {
+    override fun save(createRewardsUserRequest: CreateRewardsUserRequest): RewardsUserDTO {
 
         val name = authenticationFacade.authentication().name
         logger.info { "currently logged in user name is : {} $name" }
 
         val rewardsUser =
                 RewardsUserBuilder.builder()
-                        .setFirstName(rewardsUserDTO.firstName)
-                        .setLastName(rewardsUserDTO.lastName)
+                        .setFirstName(createRewardsUserRequest.firstName)
+                        .setLastName(createRewardsUserRequest.lastName)
                         .setUserName(name)
                         .create()
 

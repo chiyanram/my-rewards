@@ -53,13 +53,17 @@ dependencies {
     implementation("org.springframework.cloud:spring-cloud-starter-sleuth")
 
     compileOnly("org.projectlombok:lombok")
-    runtimeOnly("com.h2database:h2")
+    implementation("com.microsoft.sqlserver:mssql-jdbc")
 
     implementation("org.mapstruct:mapstruct:${property("mapstructVersion")}")
     compileOnly("org.mapstruct:mapstruct-processor:${property("mapstructVersion")}")
     annotationProcessor("org.mapstruct:mapstruct-processor:${property("mapstructVersion")}")
     api("com.github.pozo:mapstruct-kotlin:1.3.1.2")
     kapt("com.github.pozo:mapstruct-kotlin-processor:1.3.1.2")
+
+    implementation("org.springdoc:springdoc-openapi-ui:1.4.8")
+    implementation("org.springdoc:springdoc-openapi-security:1.4.8")
+    implementation("org.springdoc:springdoc-openapi-webmvc-core:1.4.8")
 
     annotationProcessor("org.springframework.boot:spring-boot-configuration-processor")
     annotationProcessor("org.projectlombok:lombok")

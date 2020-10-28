@@ -5,6 +5,7 @@ import kotlin.random.Random
 
 @Service
 class WellsFargoPointsService : PointsService {
+
     override fun balance(accountIdentifier: String): Long {
         return Random.nextLong(30000, 50000)
     }

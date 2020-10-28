@@ -11,6 +11,7 @@ import javax.persistence.*
 data class Account(
         @Id @GeneratedValue(strategy = GenerationType.SEQUENCE)
         val id: Long,
+        @Column(unique = true)
         val accountIdentifier: String,
         var points: Long,
         var cash: BigDecimal) {

@@ -1,20 +1,20 @@
 package com.rmurugaian.myrewards.controller
 
 import com.rmurugaian.myrewards.dto.AccountDTO
+import com.rmurugaian.myrewards.dto.CreateAccountRequest
 import com.rmurugaian.myrewards.service.AccountService
-import org.springframework.web.bind.annotation.*
+import org.springframework.web.bind.annotation.PostMapping
+import org.springframework.web.bind.annotation.RequestBody
+import org.springframework.web.bind.annotation.RequestMapping
+import org.springframework.web.bind.annotation.RestController
 
 @RestController
 @RequestMapping("/accounts")
 class AccountRestController(val accountService: AccountService) {
 
     @PostMapping
-    fun save(@RequestBody accountDTO: AccountDTO): AccountDTO {
-        return accountService.save(accountDTO)
+    fun save(@RequestBody createAccountDTO: CreateAccountRequest): AccountDTO {
+        return accountService.save(createAccountDTO)
     }
 
-    @GetMapping
-    fun accounts(): List<AccountDTO> {
-        return accountService.accounts()
-    }
 }

@@ -1,5 +1,6 @@
 package com.rmurugaian.myrewards.config
 
+import org.springframework.boot.actuate.autoconfigure.security.servlet.EndpointRequest
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
@@ -30,6 +31,10 @@ class SecurityConfiguration : WebSecurityConfigurerAdapter() {
         http {
             authorizeRequests {
                 authorize(anyRequest, authenticated)
+                authorize(EndpointRequest.toAnyEndpoint(), permitAll)
+                authorize("/swagger-ui.html", permitAll)
+                authorize("/swagger-ui/**", permitAll)
+                authorize("/v3/api-docs/**", permitAll)
             }
             csrf {
                 disable()

@@ -1,10 +1,11 @@
 package com.rmurugaian.myrewards.service
 
 import com.rmurugaian.myrewards.dto.AccountDTO
+import com.rmurugaian.myrewards.dto.CreateAccountRequest
 
 interface AccountService {
 
-    fun save(account: AccountDTO): AccountDTO
+    fun save(createAccountRequest: CreateAccountRequest): AccountDTO
 
-    fun accounts(): List<AccountDTO>
+    fun accountsByName(userName: String): List<AccountDTO>
 }
