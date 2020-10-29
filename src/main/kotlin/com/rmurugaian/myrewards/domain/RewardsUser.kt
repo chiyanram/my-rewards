@@ -8,14 +8,20 @@ import javax.persistence.*
 
 @Entity
 @KotlinBuilder
+@SequenceGenerator(
+        name = "rewards_user_sequence_generator",
+        sequenceName = "rewards_user_id_sequence",
+        allocationSize = 1)
 data class RewardsUser(
         @Id
-        @GeneratedValue(strategy = GenerationType.SEQUENCE)
+        @GeneratedValue(
+                strategy = GenerationType.SEQUENCE,
+                generator = "rewards_user_sequence_generator")
         var id: Long,
-        var firstName: String,
+        val firstName: String,
         @Column(nullable = false, unique = true)
-        var userName: String,
-        var lastName: String) {
+        val userName: String,
+        val lastName: String) {
 
     var totalPoints: Long = 0L
     var totalCash: BigDecimal = BigDecimal.ZERO
@@ -31,6 +37,5 @@ data class RewardsUser(
 
     fun addAccount(account: Account) {
         accounts.add(account)
-        account.user = this
     }
 }

@@ -5,7 +5,7 @@ import com.rmurugaian.myrewards.domain.Activity
 import java.time.LocalDateTime
 
 @KotlinBuilder
-data class UserActivityDTO(
+data class UserActivityResponse(
         val userName: String,
         val type: Activity,
         val description: String,

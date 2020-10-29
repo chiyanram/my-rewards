@@ -26,7 +26,7 @@ internal class GlobalControllerExceptionHandler {
         return createHttpErrorInfo(NOT_FOUND, ex)
     }
 
-    @ExceptionHandler(value = [InvalidInputException::class, HttpMessageNotReadableException::class])
+    @ExceptionHandler(value = [InvalidInputException::class, HttpMessageNotReadableException::class, IllegalStateException::class])
     @ResponseStatus(BAD_REQUEST)
     @ResponseBody
     fun handleInvalidInputException(ex: Exception): HttpErrorInfo {

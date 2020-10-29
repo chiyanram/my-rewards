@@ -1,0 +1,16 @@
+{
+  "userName": "user",
+  "firstName": "Ramachandran",
+  "lastName": "Murugaian",
+  "totalPoints": 19777,
+  "totalCash": 3955.4,
+  "accounts": [
+    {
+      "accountIdentifier": "1234567",
+      "points": 19777,
+      "cash": 3955.4,
+      "bank": "Chase",
+      "user": "user"
+    }
+  ]
+}

@@ -1,6 +1,6 @@
 package com.rmurugaian.myrewards.controller
 
-import com.rmurugaian.myrewards.dto.AccountDTO
+import com.rmurugaian.myrewards.dto.CreateAccountResponse
 import com.rmurugaian.myrewards.dto.TransferRewardsRequest
 import com.rmurugaian.myrewards.service.TransferRewardsService
 import org.springframework.web.bind.annotation.PostMapping
@@ -14,7 +14,7 @@ class TransferRewardsRestController(
         val transferRewardsService: TransferRewardsService) {
 
     @PostMapping
-    fun transfer(@RequestBody transferRewardsRequest: TransferRewardsRequest): List<AccountDTO> {
+    fun transfer(@RequestBody transferRewardsRequest: TransferRewardsRequest): List<CreateAccountResponse> {
 
         return transferRewardsService.transfer(transferRewardsRequest)
     }

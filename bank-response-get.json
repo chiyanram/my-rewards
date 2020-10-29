@@ -1,0 +1,14 @@
+[
+  {
+    "name": "Chase",
+    "conversionRate": 0.2
+  },
+  {
+    "name": "WellsFargo",
+    "conversionRate": 0.3
+  },
+  {
+    "name": "USBank",
+    "conversionRate": 0.3
+  }
+]

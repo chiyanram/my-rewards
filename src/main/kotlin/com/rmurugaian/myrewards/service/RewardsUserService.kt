@@ -1,12 +1,12 @@
 package com.rmurugaian.myrewards.service
 
 import com.rmurugaian.myrewards.dto.CreateRewardsUserRequest
-import com.rmurugaian.myrewards.dto.RewardsUserDTO
+import com.rmurugaian.myrewards.dto.CreateRewardsUserResponse
 
 interface RewardsUserService {
 
-    fun save(createRewardsUserRequest: CreateRewardsUserRequest): RewardsUserDTO
+    fun save(createRewardsUserRequest: CreateRewardsUserRequest): CreateRewardsUserResponse
 
-    fun all(): List<RewardsUserDTO>
+    fun findByUser(userName: String): CreateRewardsUserResponse
 
 }

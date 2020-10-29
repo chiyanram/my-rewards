@@ -1,0 +1,9 @@
+{
+  "userName": "user",
+  "totalPoints": 2000,
+  "description": "transfer to charles for birthday",
+  "toAccount": {
+    "accountIdentifier": "1234",
+    "bankName": "Chase"
+  }
+}

@@ -4,9 +4,9 @@ import com.github.pozo.KotlinBuilder
 import java.math.BigDecimal
 
 @KotlinBuilder
-data class AccountDTO(
+data class CreateAccountResponse(
         val accountIdentifier: String,
-        val points: Long?,
-        val cash: BigDecimal?,
+        val points: Long,
+        val cash: BigDecimal,
         val bank: String,
         val user: String)

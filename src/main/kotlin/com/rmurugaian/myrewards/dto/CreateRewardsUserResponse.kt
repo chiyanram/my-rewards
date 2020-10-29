@@ -4,10 +4,10 @@ import com.github.pozo.KotlinBuilder
 import java.math.BigDecimal
 
 @KotlinBuilder
-data class RewardsUserDTO(
+data class CreateRewardsUserResponse(
         val userName: String,
         val firstName: String,
         val lastName: String,
         val totalPoints: Long,
         val totalCash: BigDecimal,
-        val accounts: List<AccountDTO>)
+        val accounts: List<CreateAccountResponse>)

@@ -1,7 +1,7 @@
 package com.rmurugaian.myrewards.mapper
 
 import com.rmurugaian.myrewards.domain.Account
-import com.rmurugaian.myrewards.dto.AccountDTO
+import com.rmurugaian.myrewards.dto.CreateAccountResponse
 import org.mapstruct.InjectionStrategy
 import org.mapstruct.Mapper
 import org.mapstruct.Mapping
@@ -15,5 +15,5 @@ interface AccountMapper {
             Mapping(source = "bank.name", target = "bank"),
             Mapping(source = "user.userName", target = "user")
     )
-    fun entityToApi(entity: Account): AccountDTO
+    fun entityToApi(entity: Account): CreateAccountResponse
 }

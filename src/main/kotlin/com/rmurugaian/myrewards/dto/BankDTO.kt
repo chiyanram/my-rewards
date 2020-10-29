@@ -15,8 +15,8 @@ data class BankDTO(val name: String, val conversionRate: BigDecimal) {
             throw InvalidInputException("conversion rate must be greater than 0.1")
         }
 
-        if (conversionRate.compareTo(BigDecimal(0.3)) == 1) {
-            throw InvalidInputException("conversion rate must be less than 0.3")
+        if (conversionRate.compareTo(BigDecimal(0.4)) == 1) {
+            throw InvalidInputException("conversion rate must be less than 0.4")
         }
     }
 }

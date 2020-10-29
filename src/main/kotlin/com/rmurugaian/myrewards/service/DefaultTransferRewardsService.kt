@@ -4,8 +4,9 @@ import com.rmurugaian.myrewards.BalanceException
 import com.rmurugaian.myrewards.domain.Activity
 import com.rmurugaian.myrewards.domain.RewardsUser
 import com.rmurugaian.myrewards.domain.UserActivity
-import com.rmurugaian.myrewards.dto.AccountDTO
+import com.rmurugaian.myrewards.dto.CreateAccountResponse
 import com.rmurugaian.myrewards.dto.TransferRewardsRequest
+import com.rmurugaian.myrewards.exception.NotFoundException
 import com.rmurugaian.myrewards.repository.RewardsUserRepository
 import com.rmurugaian.myrewards.repository.UserActivityRepository
 import org.springframework.stereotype.Service
@@ -21,14 +22,16 @@ class DefaultTransferRewardsService(
         val userActivityRepository: UserActivityRepository,
         val rewardsUserRepository: RewardsUserRepository) : TransferRewardsService {
 
-    override fun transfer(transferRewardsRequest: TransferRewardsRequest): List<AccountDTO> {
+    override fun transfer(transferRewardsRequest: TransferRewardsRequest): List<CreateAccountResponse> {
         val userName = transferRewardsRequest.userName
         val transferPoints = transferRewardsRequest.totalPoints
 
-        val rewardsUser = rewardsUserRepository.findByUserName(userName)
-        val accounts = rewardsUser.accounts
-                .stream()
-                .filter{ it.points > 0}
+        val rewardsUser =
+                rewardsUserRepository.findByUserName(userName)
+                        .orElseThrow { NotFoundException("rewards user not found for the $userName") }
+
+        val accounts = rewardsUser.accounts.stream()
+                .filter { it.points > 0 }
                 .collect(Collectors.toList())
 
         val existingUserPoints = rewardsUser.totalPoints
@@ -40,7 +43,7 @@ class DefaultTransferRewardsService(
         var remaining = transferPoints
         for (account in accounts) {
             remaining = account.points - remaining
-            val conversionRate = account.bank!!.conversionRate
+            val conversionRate = account.bank.conversionRate
             val cash = conversionRate.multiply(BigDecimal(remaining))
             if (remaining >= 0) {
                 account.points = remaining

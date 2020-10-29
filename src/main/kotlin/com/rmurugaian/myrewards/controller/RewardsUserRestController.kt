@@ -1,7 +1,7 @@
 package com.rmurugaian.myrewards.controller
 
 import com.rmurugaian.myrewards.dto.CreateRewardsUserRequest
-import com.rmurugaian.myrewards.dto.RewardsUserDTO
+import com.rmurugaian.myrewards.dto.CreateRewardsUserResponse
 import com.rmurugaian.myrewards.service.RewardsUserService
 import org.springframework.web.bind.annotation.*
 
@@ -11,12 +11,12 @@ class RewardsUserRestController(
         val rewardsUserService: RewardsUserService) {
 
     @PostMapping
-    fun save(@RequestBody createRewardsUserRequest: CreateRewardsUserRequest): RewardsUserDTO {
+    fun save(@RequestBody createRewardsUserRequest: CreateRewardsUserRequest): CreateRewardsUserResponse {
         return rewardsUserService.save(createRewardsUserRequest)
     }
 
-    @GetMapping
-    fun get(): List<RewardsUserDTO> {
-        return rewardsUserService.all()
+    @GetMapping("/{userName}")
+    fun get(@PathVariable userName: String): CreateRewardsUserResponse {
+        return rewardsUserService.findByUser(userName)
     }
 }
